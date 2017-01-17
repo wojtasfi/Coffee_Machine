@@ -1,4 +1,4 @@
-from utils.operacje import dod,sub,mul,div
+
 
 class Kawa():
     def __init__(self,nazwa,woda,mleko,cukier,kawa,cena):
@@ -24,7 +24,7 @@ class Kawomat():
         
     def odejmij_zasoby(self,Kawa):
         if (self.woda - Kawa.woda) < 0 or (self.cukier - Kawa.cukier) <0 or (self.kawa - Kawa.kawa) <0 or (self.kubeczki - 1) < 0 or (self.mleko - Kawa.mleko) < 0:
-            print("Za mało zasobów. Spróbuj inną kawę.")
+            print("Not enough ingredients. Try different coffee.")
             return "za mało"
         else:    
             self.woda -= Kawa.woda
@@ -34,14 +34,14 @@ class Kawomat():
             self.mleko -= Kawa.mleko
             
     def pokaz_zasoby(self):
-        print("Zasoby Kawomatu: Woda %d. Cukier %d. Kawa %d. Mleko %d." % (self.woda,self.cukier,self.kawa, self.mleko))
+        print("Coffee Machine: Water %d. Sugar %d. Coffee %d. Milk %d." % (self.woda,self.cukier,self.kawa, self.mleko))
         print()
         
     def przyjmij_pieniadze(self,pieniadze,Kawa,money):
         cena = Kawa.cena
         
         if money not in pieniadze:
-            print("Zły banknot.")
+            print("Wrong banknote.")
             print()
             return "again"
         else:
@@ -49,19 +49,19 @@ class Kawomat():
         
         if self.wrzucone < cena:
             
-            print("Brakuje jeszcze %.2f PLN." % (int(cena) - int(self.wrzucone)))
+            print("You need: %.2f PLN." % (int(cena) - int(self.wrzucone)))
             print()
             return "again"
         
         elif self.wrzucone == cena:
-            print("Dziękujemy :)")
+            print("Thank you :)")
             print()
             self.zarobione += cena
             return "ok"
         
         elif self.wrzucone > cena:
-            print("Wydawanie reszty: %.2f PLN." % (int(self.wrzucone) - int(cena)))
-            print("Dziękujemy :)")
+            print("Change: %.2f PLN." % (int(self.wrzucone) - int(cena)))
+            print("Thank you :)")
             print()
             self.zarobione += cena
             return "ok"
@@ -70,9 +70,9 @@ class Kawomat():
 def pokaz_kawy(kawy):
     przerwa = 15
     wciecie =0
-    print("%sKAWOMAT" % (" " * (int(przerwa/2)) ))  
+    print("%Coffee Machine" % (" " * (int(przerwa/2)) ))  
     print("%s" % ("-" * (przerwa+8)))
-    print("Kawa%s| Cena |" % (" " * (przerwa - 4)))
+    print("Coffee%s| Price |" % (" " * (przerwa - 4)))
     print("%s" % ("-" * (przerwa+8)))
       
     for kawa in kawy:
@@ -90,7 +90,7 @@ def pokaz_kawy(kawy):
     
       
 
-kawy = [Kawa("Czarna",200,0,2,100,5),Kawa("Caffe Latte",300,100,2,50,7),Kawa("Cappucino",100,50,1,50,6)]  
+kawy = [Kawa("Americano",200,0,2,100,5),Kawa("Caffe Latte",300,100,2,50,7),Kawa("Cappucino",100,50,1,50,6)]  
 
 kawomat = Kawomat(kawy, 1000,1000,10,200,15)
 pieniadze = [1,2,5,10,20]
@@ -104,9 +104,9 @@ while odp != "n":
         ok=""
         try:
             kawomat.wrzucone = 0
-            kawa = kawy[int(input("Wybierz kawę (1 - %d): " % (len(kawy)))) -1]
+            kawa = kawy[int(input("Choose coffee (1 - %d): " % (len(kawy)))) -1]
         except:
-            print("Wybierz poprawny numer")
+            print("Enter correct number")
             ok = "nie"
         finally:
             if ok != "nie":
@@ -121,10 +121,10 @@ while odp != "n":
         #odp = input("Wybrałeś kawę %s. Kontynuować? (t/n)" % (kawa.nazwa))
         
         
-    print("Wybrałeś kawę %s. Cena to %.2f PLN." % (kawa.nazwa,kawa.cena))
+    print("You have chosen %s. Price: %.2f PLN." % (kawa.nazwa,kawa.cena))
     dalej=""
     while dalej!= "tak" :
-        money = input("Kawomat przyjmuje %s. Wrzuć monetę/banknot" % (pieniadze))
+        money = input("Coffee Machine accepts %s :" % (pieniadze))
         if kawomat.przyjmij_pieniadze(pieniadze, kawa, int(money)) == "again":
             dalej = "nie"
             continue
